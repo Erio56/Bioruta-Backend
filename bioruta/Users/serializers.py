@@ -29,7 +29,8 @@ class UserCreateSerializer(serializers.ModelSerializer):
          serializer_errors = as_serializer_error(e)
          raise exceptions.ValidationError(
             {
-               'password': serializer_errors['non_field_errors']
+               'password1': serializer_errors['non_field_errors'],
+               'password2': serializer_errors['non_field_errors']
             }
          )
       return data

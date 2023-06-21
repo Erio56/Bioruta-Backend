@@ -45,7 +45,12 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
    objects = UserAccountManager()
    
    USERNAME_FIELD = 'email'
-   REQUIRED_FIELDS = ['first_name, last_name']
+   REQUIRED_FIELDS = ['first_name', 'last_name']
    
    def __str__(self) -> str:
       return self.email
+   
+   
+class UserAddress(models.Model):
+   address = models.CharField(max_length=200)
+   user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)

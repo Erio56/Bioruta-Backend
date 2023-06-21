@@ -15,11 +15,14 @@ class RegisterView(APIView):
    permission_classes = [permissions.AllowAny]
    def post(self, request):
       data = request.data
-      first_name = data['first_name']
-      last_name = data['last_name']
-      email = data['email']
-      password = data['password']
+      # first_name = data['first_name']
+      # last_name = data['last_name']
+      # email = data['email']
+      password1 = data['password']
+      password2 = data['password2']
       
+      if password1 != password2:
+         return Response({ 'error': 'Passwords do not coincide.' } ,status=status.HTTP_400_BAD_REQUEST)
       
       serializer = UserCreateSerializer(data=data)
       
@@ -39,3 +42,5 @@ class RetriveUserView(APIView):
       user = UserSerializer(user)
       
       return Response(user.data, status=status.HTTP_200_OK)
+   
+   
