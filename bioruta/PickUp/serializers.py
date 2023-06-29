@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from PickUp.models import PickUp, Material
-from Users.models import UserAccount
+from Users.models import UserAccount, UserAddress
 from Users.serializers import UserSerializer
 from django.contrib.auth import get_user_model
 
@@ -10,12 +10,12 @@ from django.contrib.auth import get_user_model
 class MaterialSerializer(serializers.ModelSerializer):
    class Meta:
       model = Material
-      fields = ['materialType', 'height', 'width', 'weight' ]
-      
+      fields = ['materialType', 'height', 'width', 'weight']
 
 
 class PickUpSerializer(serializers.ModelSerializer):
    materials = MaterialSerializer(many=True)
+   address = UserAddress()
    
    class Meta:
       model = PickUp

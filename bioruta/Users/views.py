@@ -5,6 +5,10 @@ from rest_framework.views import APIView
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
+from .serializers import AddressSerializer
+
+from .models import UserAddress
+
 
 User = get_user_model()
 
@@ -42,5 +46,15 @@ class RetriveUserView(APIView):
       user = UserSerializer(user)
       
       return Response(user.data, status=status.HTTP_200_OK)
+
+class RetrieveAdressView(APIView):
+   permission_classes = [permissions.IsAuthenticated]
    
+   def get(self, request):
+      
+      user = request.user
+      address = AddressSerializer(UserAddress.objects.filter(user=user), many=True).data
+      
+      return Response(address, status=status.HTTP_200_OK)
+      
    

@@ -5,6 +5,8 @@ from rest_framework.serializers import as_serializer_error
 
 from django.contrib.auth.password_validation import validate_password
 
+from .models import UserAddress
+
 #User = get_user_model()
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -39,3 +41,9 @@ class UserSerializer(serializers.ModelSerializer):
    class Meta:
       model = get_user_model()
       fields = ('first_name','last_name', 'email')
+      
+
+class AddressSerializer(serializers.ModelSerializer):
+   class Meta:
+      model = UserAddress
+      fields = ['id', 'address']

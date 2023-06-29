@@ -12,10 +12,10 @@ from Users.models import UserAccount
 class PickUpRequest(APIView):
    def post(self, request):
       data = request.data
-      
       pickUp = PickUpSerializer(data=data)
-         
+      
       if not pickUp.is_valid():
+         print(pickUp.errors)
          return Response({'Error':'Invalid data'}, status=status.HTTP_400_BAD_REQUEST)
          
       user = request.user
